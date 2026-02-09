@@ -1,16 +1,62 @@
-# React + Vite
+# San Valentín
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Una aplicación web interactiva diseñada para hacer la pregunta más importante del año de una forma especial y memorable. 
 
-Currently, two official plugins are available:
+## Descripción
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Esta aplicación presenta una interfaz moderna y envolvente donde puedes proponer un encuentro especial para el Día de San Valentín. Cuenta con animaciones fluidas, un botón "No" que intenta escapar (porque nadie quiere perder en el primer intento), y una cascada de corazones flotantes cuando la respuesta es afirmativa.
 
-## React Compiler
+## Características
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Interfaz moderna y responsiva construida con React
+- Animaciones visuales suave y atractivas
+- Diseño oscuro elegante con efectos de brillo
+- Botón interactivo que se mueve para evitar ser presionado
+- Animación de corazones flotantes al aceptar
 
-## Expanding the ESLint configuration
+## Stack Tecnológico
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **React 19** - Librería de interfaz de usuario
+- **Vite** - Herramienta de construcción y desarrollo rápido
+- **Tailwind CSS 4** - Framework CSS para estilos
+- **JavaScript ES6+** - Lenguaje de programación
+
+## Desarrollo
+
+Para ejecutar la aplicación en modo desarrollo:
+
+```bash
+npm run dev
+```
+
+La aplicación estará disponible en `http://localhost:5173`
+
+## Construcción
+
+Para crear una versión optimizada para producción:
+
+```bash
+npm run build
+```
+
+La salida se generará en la carpeta `dist/`
+
+## Despliegue
+
+La aplicación está alojada en GitHub Pages y puede ser accedida en:
+
+https://fabricioregalado.github.io/san-valentin/
+
+Para desplegar cambios:
+
+```bash
+npm run deploy
+```
+
+## Linting
+
+Para verificar la calidad del código:
+
+```bash
+npm run lint
+```
