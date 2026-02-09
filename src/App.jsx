@@ -170,7 +170,7 @@ export default function App() {
                   </div>
 
                   <p className="text-xs text-white/55">
-                    Tip: el "No" es tímido. Tocalo con tu dedito.
+                    Tip: el "No" es tímido. Desliza suavemente con tu dedito.
                   </p>
                 </div>
               )}
