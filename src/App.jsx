@@ -75,6 +75,7 @@ export default function App() {
   const [step, setStep] = useState("ask"); // ask | yes | no 
   const [noPos, setNoPos] = useState({ x: 0, y: 0 });
   const [showHearts, setShowHearts] = useState(false);
+  const [heartsKey, setHeartsKey] = useState(0);
 
   const name = "cielito";
   const question = `¿Quieres ser mi San Valentín, ${name}?`;
@@ -90,13 +91,13 @@ export default function App() {
 
   const subtitle = useMemo(() => {
     if (step === "ask") return "Una sola pregunta. Prometo que vale la pena.";
-    if (step === "yes") return "Ya quedó. No hay devoluciones.";
+    if (step === "yes") return "No hay devoluciones jiji.";
     return "Te doy otra oportunidad…";
   }, [step]);
 
   return (
     <div className="min-h-screen bg-neutral-950 text-white">
-      {showHearts && <FloatingHearts />}
+      {showHearts && <FloatingHearts key={heartsKey} />}
       <div className="mx-auto flex min-h-screen max-w-md items-center px-5">
         <div className="relative w-full">
           <HeartGlow />
@@ -107,7 +108,7 @@ export default function App() {
              
 
               <h1 className="mt-4 text-2xl font-semibold tracking-tight">
-                {step === "ask" ? question : step === "yes" ? "¡Dijo que sí!" : "¿Seguro?"}
+                {step === "ask" ? question : step === "yes" ? "🥺" : "¿Segura 😾?"}
               </h1>
               <p className="mt-2 text-sm text-white/70">{subtitle}</p>
             </div>
@@ -126,6 +127,7 @@ export default function App() {
                     <button
                       onClick={() => {
                         setShowHearts(true);
+                        setHeartsKey(prev => prev + 1);
                         setStep("yes");
                       }}
                       className="flex-1 rounded-xl bg-pink-500 px-4 py-3 text-sm font-semibold shadow-lg shadow-pink-500/20 transition duration-300 hover:scale-[1.05] hover:shadow-xl hover:shadow-pink-500/40 active:scale-[0.98] cursor-pointer focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 focus:ring-offset-neutral-950"
@@ -165,7 +167,10 @@ export default function App() {
                   </div>
 
                   <button
-                    onClick={() => setStep("ask")}
+                    onClick={() => {
+                      setShowHearts(false);
+                      setStep("ask");
+                    }}
                     className="w-full rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-sm font-semibold transition duration-300 hover:bg-white/20 hover:border-white/30 cursor-pointer focus:outline-none focus:ring-2 focus:ring-white/50"
                   >
                     Reiniciar
@@ -181,13 +186,20 @@ export default function App() {
 
                   <div className="flex gap-3">
                     <button
-                      onClick={() => setStep("ask")}
+                      onClick={() => {
+                        setShowHearts(false);
+                        setStep("ask");
+                      }}
                       className="flex-1 rounded-xl bg-pink-500 px-4 py-3 text-sm font-semibold shadow-lg shadow-pink-500/20 transition duration-300 hover:scale-[1.05] hover:shadow-xl hover:shadow-pink-500/40 active:scale-[0.98] cursor-pointer focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 focus:ring-offset-neutral-950"
                     >
                       Ok, otra vez
                     </button>
                     <button
-                      onClick={() => setStep("yes")}
+                      onClick={() => {
+                        setShowHearts(true);
+                        setHeartsKey(prev => prev + 1);
+                        setStep("yes");
+                      }}
                       className="flex-1 rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-sm font-semibold transition duration-300 hover:bg-white/20 hover:border-white/30 cursor-pointer focus:outline-none focus:ring-2 focus:ring-white/50"
                     >
                       Cambié de opinión
