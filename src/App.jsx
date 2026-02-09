@@ -15,6 +15,9 @@ function FloatingHearts() {
 
   useEffect(() => {
     // Generar corazones aleatorios con diferentes tamaños, colores y trayectorias
+    const isMobile = window.innerWidth < 640;
+    const maxOffset = isMobile ? 40 : 100; // Menor dispersión en móvil
+    
     const newHearts = Array.from({ length: 36 }).map((_, i) => {
       const size = 1.8 + Math.random() * 3.2; 
       const colors = ["❤️", "🩷", "🌹"];
@@ -23,7 +26,7 @@ function FloatingHearts() {
         left: 50, // Centrado horizontalmente
         delay: Math.random() * 0.9,
         duration: 6 + Math.random() * 3,
-        xOffset: Math.random() * 200 - 100, // Mayor dispersión horizontal
+        xOffset: (Math.random() * 2 - 1) * maxOffset,
         size,
         color: colors[Math.floor(Math.random() * colors.length)],
       };
@@ -41,11 +44,11 @@ function FloatingHearts() {
         @keyframes floatExplosion {
           0% {
             opacity: 1;
-            transform: translate3d(var(--x), 0, 0) scale(0.6);
+            transform: translate3d(calc(var(--x) - 50%), 0, 0) scale(0.6);
           }
           100% {
             opacity: 0;
-            transform: translate3d(var(--x), -150vh, 0) scale(0.15);
+            transform: translate3d(calc(var(--x) - 50%), -150vh, 0) scale(0.15);
           }
         }
       `}</style>
@@ -54,7 +57,7 @@ function FloatingHearts() {
           key={heart.id}
           className="absolute"
           style={{
-            left: `${heart.left}%`,
+            left: "50%",
             top: "100%",
             fontSize: `${64 * heart.size}px`,
             animation: `floatExplosion ${heart.duration}s ease-in-out forwards`,
@@ -84,9 +87,9 @@ export default function App() {
   const noMsg = `Ok… (pero te dejo pensarlo)`;
 
   const moveNo = () => {
-    // Movimiento más impredecible dentro del rango de la pantalla
-    const maxX = window.innerWidth > 640 ? 200 : 150;
-    const maxY = window.innerHeight > 768 ? 200 : 150;
+    // Movimiento más controlado para mantener el botón visible
+    const maxX = window.innerWidth > 640 ? 60 : 30;
+    const maxY = window.innerHeight > 768 ? 80 : 50;
     const x = Math.floor((Math.random() * 2 - 1) * maxX);
     const y = Math.floor((Math.random() * 2 - 1) * maxY);
     setNoPos({ x, y });
@@ -102,7 +105,7 @@ export default function App() {
   }, [step]);
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-white">
+    <div className="min-h-screen bg-neutral-950 text-white overflow-x-hidden">
       {showHearts && <FloatingHearts key={heartsKey} />}
       <div className="mx-auto flex min-h-screen max-w-md items-center px-5">
         <div className="relative w-full">
@@ -129,7 +132,7 @@ export default function App() {
                     </div>
                   </div>
 
-                  <div className="relative flex gap-3">
+                  <div className="relative flex gap-3 min-h-[48px]">
                     <button
                       onClick={() => {
                         setShowHearts(true);
