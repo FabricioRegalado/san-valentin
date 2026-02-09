@@ -20,10 +20,10 @@ function FloatingHearts() {
       const colors = ["❤️", "🩷", "🌹"];
       return {
         id: i,
-        left: Math.random() * 100,
+        left: 50, // Centrado horizontalmente
         delay: Math.random() * 0.9,
         duration: 6 + Math.random() * 3,
-        xOffset: Math.random() * 120 - 60,
+        xOffset: Math.random() * 200 - 100, // Mayor dispersión horizontal
         size,
         color: colors[Math.floor(Math.random() * colors.length)],
       };
@@ -76,6 +76,7 @@ export default function App() {
   const [noPos, setNoPos] = useState({ x: 0, y: 0 });
   const [showHearts, setShowHearts] = useState(false);
   const [heartsKey, setHeartsKey] = useState(0);
+  const [canClickNo, setCanClickNo] = useState(true);
 
   const name = "cielito";
   const question = `¿Quieres ser mi San Valentín, ${name}?`;
@@ -83,10 +84,15 @@ export default function App() {
   const noMsg = `Ok… (pero te dejo pensarlo)`;
 
   const moveNo = () => {
-    // movimiento suave dentro de un rango
-    const x = Math.floor((Math.random() * 2 - 1) * 120);
-    const y = Math.floor((Math.random() * 2 - 1) * 60);
+    // Movimiento más impredecible dentro del rango de la pantalla
+    const maxX = window.innerWidth > 640 ? 200 : 150;
+    const maxY = window.innerHeight > 768 ? 200 : 150;
+    const x = Math.floor((Math.random() * 2 - 1) * maxX);
+    const y = Math.floor((Math.random() * 2 - 1) * maxY);
     setNoPos({ x, y });
+    // Desactiva el click mientras el botón se está moviendo
+    setCanClickNo(false);
+    setTimeout(() => setCanClickNo(true), 300);
   };
 
   const subtitle = useMemo(() => {
@@ -144,8 +150,17 @@ export default function App() {
                     >
                       <button
                         onMouseEnter={moveNo}
-                        onTouchStart={moveNo}
-                        onClick={() => setStep("no")}
+                        onMouseMove={moveNo}
+                        onFocus={moveNo}
+                        onTouchStart={(e) => {
+                          e.preventDefault();
+                          moveNo();
+                        }}
+                        onTouchMove={(e) => {
+                          e.preventDefault();
+                          moveNo();
+                        }}
+                        onClick={() => canClickNo && setStep("no")}
                         className="w-full rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-sm font-semibold text-white/90 transition duration-300 hover:bg-white/20 hover:border-white/30 cursor-pointer focus:outline-none focus:ring-2 focus:ring-white/50"
                         title="piénsalo bien"
                       >
