@@ -1,6 +1,6 @@
 # San Valentín
 
-Una aplicación web interactiva diseñada para hacer la pregunta más importante del año de una forma especial y memorable. 
+Una aplicación web interactiva diseñada para hacer la pregunta más importante del año de una forma especial. 
 
 ## Descripción
 
